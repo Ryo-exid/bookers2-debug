@@ -10,7 +10,7 @@ class BooksController < ApplicationController
   def index
     @books = Book.all
     @book = Book.new
-    @favorite = Favorite.ne
+    @favorite = Favorite.new
   end
 
   def create
