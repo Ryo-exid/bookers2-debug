@@ -32,6 +32,10 @@
           </p>
           <% end %>
         </td>
+        
+        <td>
+          <p><%= link_to "コメント数: #{book.book_comments.count} " %></p>
+        </td>
       </tr>
     <% end %>
   </tbody>
