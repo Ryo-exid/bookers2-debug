@@ -1,14 +1,22 @@
 class User < ApplicationRecord
+
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable
 
   has_many :books, dependent: :destroy
   has_many :favorites, dependent: :destroy
   has_many :book_comments, dependent: :destroy
-  # foreign_key（FK）には、@user.xxxとした際に「@user.idがfollower_idなのかfollowed_idなのか」を指定します。
-  has_many :xxx, class_name: "モデル名", foreign_key: "○○_id", dependent: :destroy
-  # @user.booksのように、@user.yyyで、そのユーザがフォローしている人orフォローされている人の一覧を出したい
-  has_many :yyy, through: :xxx, source: :zzz
+
+  # ====================自分がフォローしているユーザーとの関連 ===================================
+  has_many :active_relationships, class_name: "Relationship", foreign_key: :followed_id, dependent: :destroy
+  has_many :followeds, through: :active_relationships, source: :follower
+  # ========================================================================================
+
+  # ====================自分がフォローされるユーザーとの関連 ===================================
+  has_many :passive_relationships, class_name: "Relationship", foreign_key: :follower_id, dependent: :destroy
+  has_many :followers, through: :passive_relationships, source: :followed
+  # =======================================================================================
+
 
   attachment :profile_image, destroy: false
 
@@ -18,4 +26,10 @@ class User < ApplicationRecord
   def already_favorited?(book)
     self.favorites.exists?(book_id: book.id)
   end
+
+  def followed_by?(user)
+    # 今自分(引数のuser)がフォローしようとしているユーザー(レシーバー)がフォローされているユーザー(つまりpassive)の中から、引数に渡されたユーザー(自分)がいるかどうかを調べる
+    passive_relationships.find_by(followed_id: user.id).present?
+  end
+
 end
