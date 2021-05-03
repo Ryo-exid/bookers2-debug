@@ -13,6 +13,14 @@
         <td><%= user.name %></td>
 
         <td>
+          <p>フォロー数: <%= user.followeds.count %></p>
+        </td>
+
+        <td>
+          <p>フォロワー数: <%= user.followers.count %></p>
+        </td>
+
+        <td>
           <!--自分をフォローする自体は避けたいので、if current_user != userで自分をのぞいた人たちのみボタンを表示するような実装-->
           <% if current_user != book.user %>
             <% if user.followed_by?(current_user) %>
