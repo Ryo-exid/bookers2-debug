@@ -19,19 +19,7 @@
           <td><%= @book.body %></td>
 
           <td>
-            <% if @book.favorited_by?(current_user) %>
-            <p>
-              <%= link_to book_favorites_path(@book), method: :delete do %>
-                <span class="fa fa-heart like-btn"><%= @book.favorites.count %></span>
-              <% end %>
-            </p>
-            <% else %>
-            <p>
-              <%= link_to book_favorites_path(@book), method: :post do %>
-                <span class="fa fa-heart like-btn-unkike"><%= @book.favorites.count %></span>
-              <% end %>
-            </p>
-            <% end %>
+            <%= render "favorites/favorite-btn", book: @book %>
           </td>
 
           <td>
