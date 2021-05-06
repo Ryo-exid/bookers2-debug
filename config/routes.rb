@@ -1,9 +1,13 @@
 Rails.application.routes.draw do
-  get 'relationships/create'
-  get 'relationships/destroy'
-  devise_for :users
+  devise_for :users, :controllers => {
+   :registrations => 'users/registrations',
+  }
+
   root 'homes#top'
   get 'home/about' => 'homes#about'
+
+  get 'relationships/create'
+  get 'relationships/destroy'
 
   get 'search' => 'search#search'
 
