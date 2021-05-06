@@ -35,12 +35,12 @@
 
       </table>
 
-      <div id=<%= "comment" + @book.id.to_s %>>
+      <div id= <%= "comment" + @book.id.to_s %> >
        <%= render  partial: "book_comments/comments", locals: {book_comment: @book_comment, book: @book} %>
       </div>
 
 
-      <div id="new-comment">
+      <div "new-comment">
         <%= render "book_comments/form", book_comment: @book_comment, book: @book %>
       </div>
 
