@@ -19,22 +19,21 @@
 
 # Learn more: http://github.com/javan/whenever
 
-# 絶対パスから相対パス指定
-env :PATH, ENV['PATH']
-
-# ログファイルの出力先
+require File.expand_path(File.dirname(__FILE__) + "/environment")
+rails_env = Rails.env.to_sym
+set :environment, rails_env
 set :output, 'log/cron.log'
-# ジョブの実行環境の指定
-set :environment, :development
-#
-# every 12.hours do
-#   command "/usr/bin/some_great_command"
-#   runner "MyModel.some_method"
-#   rake "some:great:rake:task"
-# end
-#
-every 1.days, at: '6:15 pm' do
-
-# Rails内のメソッド実行
-  runner "ThanksMailer.thanks_email"
+every 1.minute do
+  runner "DailyMailer.thanks_to_all"
 end
+
+# env :PATH, ENV['PATH']
+# set :output, "log/cron.log"  #ログファイルの出力先を指定
+# set :environment, :development
+
+
+# every 1.minutes do
+
+# # DailyMailerのdaily_notificationメソッド実行
+#   runner "DailyMailer.thanks_to_all"
+# end
