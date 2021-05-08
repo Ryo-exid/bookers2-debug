@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class ChatControllerTest < ActionDispatch::IntegrationTest
+class ChatsControllerTest < ActionDispatch::IntegrationTest
   test "should get show" do
-    get chat_show_url
+    get chats_show_url
     assert_response :success
   end
 
