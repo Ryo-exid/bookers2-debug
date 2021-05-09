@@ -1,14 +1,8 @@
 class DailyMailer < ApplicationMailer
 
-  def daily_notification(user)
+  def daily_notification
     default to: -> { User.pluck(:email) }
-    mail(subject: "Everyday email !")
+    mail(subject: "Daily Report of Your Record")
   end
 
-  def self.thanks_to_all
-    users = User.all
-    users.each do |user|
-      DailyMailer.daily_notification(user).deliver_now
-    end
-  end
 end
