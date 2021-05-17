@@ -1,1 +1,3 @@
+<!--インスタンス変数は、favorites_controllerのcreateアクションで定義されたものが使用できます。-->
+<!--html()以降では部分テンプレートを呼び出しています。-->
 $("#favorite-btn"+<%= @book.id %>).html("<%= j(render 'favorites/favorite-btn', book: @book) %>");
